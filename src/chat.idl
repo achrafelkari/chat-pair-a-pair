@@ -1,0 +1,28 @@
+module chatmodule{
+  	
+	interface MessageBox{
+	 attribute string message;
+	 void receive(in string message);
+	};
+	
+      typedef sequence<string> Clients;
+
+	   interface ClientConnection{
+	    attribute MessageBox mbx;
+	    MessageBox connect(in string nickname,in MessageBox rcv);
+	    };
+    
+    	interface ClientManager{
+		void initClients(in Clients clients);
+		void addClient(in string client);
+		void remClient(in string client);
+	};
+  
+     interface ServerConnection {
+     attribute Clients client; 
+     void connect(in string nickname, in ClientConnection cnx,in ClientManager mgr);
+     void disconnect(in string nickname);
+     ClientConnection getClient(in string nickname);
+	};
+		
+	};
